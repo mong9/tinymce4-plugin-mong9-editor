@@ -100,18 +100,4 @@ function mong9editor_editor() {
 
 } // mong9editor_editor
 
-// get language
-function get_mong9_language($language) {
-	return (file_exists(MONG9_SOURCE_DIR.'js/langs/'. $language .'.js')) ? $language : 'en';
-}
-
-// get font family
-function get_mong9_font_family($language) {
-	return (file_exists(MONG9_SOURCE_DIR.'js/font-family/'. $language .'.js')) ? $language : 'en';
-}
-
-function get_example_html($language) {
-	return (file_exists(MONG9_SOURCE_DIR.'example/'. $language .'.html')) ? $language : 'en';
-}
-
 ?>

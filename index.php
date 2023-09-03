@@ -47,6 +47,8 @@ define('MONG9_GOOGLE_TOKEN',(isset($_REQUEST['google_token']) && $_REQUEST['goog
 define('MONG9_UPLOAD_DIR',MONG9_EDITOR__PLUGIN_DIR .'data/'); // Image upload folder name(이미지 업로드 폴더명)
 define('MONG9_IMAGE_UPLOAD_SIZE',$image_upload_size);
 
+require_once(MONG9_EDITOR__PLUGIN_DIR.'includes/functions/editor-function.php');
+
 function mong9editor_int() {
 
 	$mong9_editor_use = 1; // 사용가능
@@ -68,87 +70,10 @@ function mong9editor_int() {
 
 } // function
 
-// Parse 'mong9_action'
-function mong9editor_parse_request($mong9_action = '') {
-
-	if (MONG9_EDITOR_POSSIBLE == 1) {
-
-		if ($mong9_action != '') {
-
-			if (file_exists(MONG9_EDITOR__PLUGIN_DIR .'includes/'. $mong9_action .'.php')) {
-
-				include MONG9_EDITOR__PLUGIN_DIR .'includes/'. $mong9_action .'.php';
-				$func = 'mong9editor_' . $mong9_action;
-				$func();
-				exit();
-
-			}
-
-		}
-
-    }
-
-	print_m9_msg( m9_die_msg('Security check failed.') );
-	exit();
-
-} // function
-
-// Mong9 int
-function mong9editor_enqueue_int() {
-
-	$mong9_window_url = MONG9_NOW_SITE_DOMAIN .'index.php?mong9_action=editor';
-
-	$rn = "\n";
-	$_script = '<script>';
-	$_script .= "if (!M9_SET) { var M9_SET = {}; }". $rn;
-	$_script .= "M9_SET['mong9_editor_use'] = '". MONG9_EDITOR_POSSIBLE . "';". $rn;
-	$_script .= "M9_SET['mong9_url'] = '". MONG9_EDITOR__PLUGIN_URL ."';". $rn;
-	$_script .= "M9_SET['mong9_screen_size'] = { 'm' : '". MONG9_SCREEN_SIZE_m ."' , 'e' : '". MONG9_SCREEN_SIZE_e ."' };". $rn;
-	$_script .= "M9_SET['google_token'] = '". MONG9_GOOGLE_TOKEN ."';". $rn;
-	$_script .= "M9_SET['mong9_window_url'] = '". $mong9_window_url . "';". $rn;
-	$_script .= '</script>';
-
-	echo $_script;
-
-	mong9_enqueue_script('mong9-js',MONG9_EDITOR__PLUGIN_URL.'source/js/mong9.js');
-
-} // function
-
-// Add custom js,css in user mode
-function mong9editor_site_enqueue_scripts() {
-
-	mong9_enqueue_style('bootstrap-icons',MONG9_EDITOR__PLUGIN_URL.'source/etc/bootstrap-icons/bootstrap-icons.min.css');
-	mong9_enqueue_style('mong9-base',MONG9_EDITOR__PLUGIN_URL.'source/css/mong9-base.css');
-	mong9_enqueue_style('mong9',MONG9_EDITOR__PLUGIN_URL.'source/css/mong9.css');
-	mong9_enqueue_style('mong9-m',MONG9_EDITOR__PLUGIN_URL.'source/css/mong9-m.css','','','all and (max-width: '. MONG9_SCREEN_SIZE_m .'px)');
-	mong9_enqueue_style('mong9-e',MONG9_EDITOR__PLUGIN_URL.'source/css/mong9-e.css','','','all and (max-width: '. MONG9_SCREEN_SIZE_e .'px)');
-
-} // function
-
 // Mong9 Filter
 function Mong9_Html_Convert_Filter($html) {
 	require_once(MONG9_EDITOR__PLUGIN_DIR . 'includes/functions/content-filter.php');
 	return Mong9_Html_Convert($html);
-} // function
-
-// print ajax message
-function print_m9_msg($msg = '') {
-	echo $msg;
-	exit;	
-} // function
-
-function m9_die_msg($msg = '') {
-//	return __($msg);
-	return $msg;
-} // function
-
-
-function mong9_enqueue_script($Dname,$Durl) {
-	echo '<script type="text/javascript" src="'. $Durl .'"></script>'."\n";
-} // function
-
-function mong9_enqueue_style($Dname,$Durl,$Detc='') {
-	echo '<link rel="stylesheet" href="'. $Durl .'" '. ( ($Detc) ? $Detc : '' ) .'>';
 } // function
 
 function get_mong9_domain_info() {
@@ -171,11 +96,6 @@ function get_mong9_domain_info() {
 	return $array;
 
 } // function
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Functions used only in Tinymce4 from below
-// 아래부터는 Tinymce4 에만 사용되는 함수들
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 mong9editor_int();
 
