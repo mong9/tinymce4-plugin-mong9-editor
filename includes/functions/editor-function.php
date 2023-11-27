@@ -29,8 +29,6 @@ function mong9editor_parse_request($mong9_action = '') {
 
 function mong9editor_enqueue_int() {
 
-	#wp_enqueue_script('jquery');
-
 	$rn = "\n";
 	$_script = '<script>'. $rn;
 	$_script .= "if (!M9_SET) { var M9_SET = {}; }". $rn;
@@ -38,9 +36,6 @@ function mong9editor_enqueue_int() {
 	$_script .= "M9_SET['mong9_url'] = '". MONG9_EDITOR__PLUGIN_URL ."'; // Mong9 에디터 주소". $rn;
 	$_script .= "M9_SET['mong9_screen_size'] = { 'm' : '". MONG9_SCREEN_SIZE_m ."' , 'e' : '". MONG9_SCREEN_SIZE_e ."' };". $rn;
 	$_script .= "M9_SET['google_token'] = '". MONG9_GOOGLE_TOKEN ."'; // 구글지도 토큰(구글지도 사용시, 인증토큰이 필요합니다.)". $rn;
-
-#	$nonce = wp_create_nonce('mong9_editor_window_nonce');
-#	$mong9_window_url = MONG9_NOW_SITE_DOMAIN .'index.php?mong9_action=editor&nonce='. $nonce;
 
 	$mong9_window_url = MONG9_NOW_SITE_DOMAIN .'index.php?mong9_action=editor';
 
