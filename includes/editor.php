@@ -3,9 +3,9 @@
 if(!defined("MONG9")) exit();
 
 $_lang = (isset($_REQUEST['lang']) && $_REQUEST['lang'] != '') ? $_REQUEST['lang'] : ''; 
-define(MONG9_SOURCE_URL,MONG9_EDITOR__PLUGIN_URL.'source/');
-define(MONG9_SOURCE_DIR,MONG9_EDITOR__PLUGIN_DIR.'source/');
-define(MONG9_LANG, get_mong9_language($_lang) );
+define('MONG9_SOURCE_URL',MONG9_EDITOR__PLUGIN_URL.'source/');
+define('MONG9_SOURCE_DIR',MONG9_EDITOR__PLUGIN_DIR.'source/');
+define('MONG9_LANG', get_mong9_language($_lang) );
 
 function mong9editor_editor() {
 
