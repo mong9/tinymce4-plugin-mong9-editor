@@ -78,7 +78,7 @@ function Mong9_Html_Convert_Filter($html) {
 
 function get_mong9_domain_info() {
 
-	$domain = ($_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://';
+	$domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://';
 	$domain .= ($_SERVER['SERVER_PORT'] != '80' && $_SERVER['SERVER_PORT'] != '443') ? $_SERVER['HTTP_HOST'].':'.$_SERVER['SERVER_PORT'] : $_SERVER['HTTP_HOST'];
 	$relative_path = preg_replace("`\/[^/]*\.php$`i", "/", $_SERVER['PHP_SELF']);
 	$plugin_url = $domain.$relative_path;
@@ -87,10 +87,10 @@ function get_mong9_domain_info() {
 	$domain_dir = preg_replace('/' . $escaped_path . '$/', '',__DIR__.'/');
 
 	$array = array(
-		domain_url => $domain .'/',
-		domain_dir => $domain_dir .'/',
-		plugin_url => $plugin_url,
-		plugin_dir => __DIR__ .'/',
+		'domain_url' => $domain .'/',
+		'domain_dir' => $domain_dir .'/',
+		'plugin_url' => $plugin_url,
+		'plugin_dir' => __DIR__ .'/',
 	);
 
 	return $array;
